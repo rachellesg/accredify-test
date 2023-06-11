@@ -4,10 +4,23 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <div class="menu">
-    <img alt="logo" class="logo" src="@/assets/logo.svg" width="100" height="100" />
+    <img alt="logo" class="logo" src="@/assets/logo.svg" width="40" height="40" />
     <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/">
+        <img alt="Dashboard Homepage" src="@/assets/icons/home.svg" width="18" height="18" />
+      </RouterLink>
+      <RouterLink to="/">
+        <img alt="Documents" src="@/assets/icons/file.svg" width="18" height="18" />
+      </RouterLink>
+      <RouterLink to="/">
+        <img alt="Some page" src="@/assets/icons/bulb.svg" width="18" height="18" />
+      </RouterLink>
+      <RouterLink to="/">
+        <img alt="Another page" src="@/assets/icons/shield.svg" width="18" height="18" />
+      </RouterLink>
+      <RouterLink to="/">
+        <img alt="Settings" src="@/assets/icons/setting.svg" width="18" height="18" />
+      </RouterLink>
     </nav>
   </div>
 
@@ -17,12 +30,15 @@ import { RouterLink, RouterView } from 'vue-router'
 <style scoped>
 .menu {
   line-height: 1.5;
+  background: var(--background-dark);
+  color: var(--white);
   height: 100vh;
-  width: 15%;
+  width: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  padding: 20px 0;
 }
 
 .logo {
@@ -31,12 +47,11 @@ import { RouterLink, RouterView } from 'vue-router'
 
 nav {
   width: 100%;
-  font-size: 12px;
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 nav a.router-link-exact-active {
@@ -48,11 +63,15 @@ nav a.router-link-exact-active:hover {
 }
 
 nav a {
-  display: inline-block;
-  padding: 0 1rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  padding: 18px;
+  align-items: center;
+  justify-content: center;
 }
 
-nav a:first-of-type {
-  border: 0;
+nav a:hover {
+  background-color: #353d4e !important;
 }
 </style>
