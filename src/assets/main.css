@@ -6,6 +6,7 @@
   font-weight: normal;
   display: flex;
   justify-content: space-between;
+  font-family: var(--font-body);
 }
 
 h1 {
