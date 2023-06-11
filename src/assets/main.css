@@ -2,11 +2,13 @@
 
 #app {
   max-width: 100vw;
+  min-width: 1400px;
   box-sizing: border-box;
   font-weight: normal;
   display: flex;
   justify-content: space-between;
   font-family: var(--font-body);
+  background: var(--background-dark);
 }
 
 h1 {
@@ -73,6 +75,12 @@ a {
 
 section {
   margin: 0 0 20px;
+}
+
+.content {
+  padding: 20px 80px;
+  min-height: inherit;
+  background: var(--white);
 }
 
 @media (hover: hover) {
