@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Pulp Display';
+    src: url('PulpDisplay-Regular.woff2') format('woff2'),
+        url('PulpDisplay-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
