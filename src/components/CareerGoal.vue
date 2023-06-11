@@ -5,9 +5,16 @@ defineProps<{
 </script>
 
 <template>
-  <div class="container">
-    <h4>{{ title }}</h4>
-  </div>
+  <section>
+    <div class="row">
+      <h4>{{ title }}</h4>
+    </div>
+    <div class="container">Etc etc</div>
+  </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+section {
+  width: 25%;
+}
+</style>
