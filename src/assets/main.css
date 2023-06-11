@@ -26,6 +26,25 @@ h4 {
   line-height: 32px;
 }
 
+h6 {
+  /* Heading 6 (14px) */
+
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  /* identical to box height, or 171% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  /* Neutral/N60 */
+
+  color: #5b6270;
+}
+
 a {
   text-decoration: none;
   color: var(--primary);
