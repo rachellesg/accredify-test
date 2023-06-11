@@ -1,13 +1,45 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+
 import CareerGoal from '@/components/CareerGoal.vue'
 import RecentDocument from '@/components/Document/RecentDocument.vue'
+
+const user = ref<User | null>(null)
+
+interface User {
+  id: number
+  name: string
+  email: string
+  profile_picture_url: string
+  email_verified_at: string
+  identification_number: string
+  current_organisation: {
+    id: number
+    name: string
+    logo_url: string
+    is_personal: boolean
+  }
+}
+
+const fetchUser = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/api/user')
+    const data = await response.json()
+    user.value = data.data
+  } catch (error) {
+    console.error('Error fetching user data:', error)
+  }
+}
+
+onMounted(fetchUser)
 </script>
 
 <template>
   <main>
     <header>
       <div class="settings">
-        Gerald Goh
+        <img :src="(user && user.profile_picture_url) ?? ''" alt="Profile Picture" />
+        {{ user && user.name }}
         <svg
           width="10"
           height="6"
@@ -23,7 +55,7 @@ import RecentDocument from '@/components/Document/RecentDocument.vue'
       </div>
     </header>
     <section>
-      <h1>Hi, Gerald Goh 👋</h1>
+      <h1>Hi, {{ user && user.name }} 👋</h1>
       <p class="helper-text">
         Manage your documents issued by SMU Academy or track your career goal.
       </p>
@@ -53,12 +85,16 @@ header:after {
   position: absolute;
   bottom: 0;
 }
-
 .settings {
   width: 120px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.settings img {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
 }
 
 main {
