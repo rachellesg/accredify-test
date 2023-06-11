@@ -1,7 +1,32 @@
 <script setup lang="ts">
+import { ref, defineProps, onMounted } from 'vue'
+
 defineProps<{
   title: string
 }>()
+
+const careerGoalData = ref<CareerGoal | null>(null)
+
+interface CareerGoal {
+  id: number
+  name: string
+  description: string
+  category: string
+  type: string
+  progress: number
+}
+
+const fetchCareerGoal = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/api/goal')
+    const data = await response.json()
+    careerGoalData.value = data.data[0]
+  } catch (error) {
+    console.error('Error fetching user data:', error)
+  }
+}
+
+onMounted(fetchCareerGoal)
 </script>
 
 <template>
@@ -12,7 +37,9 @@ defineProps<{
     <div class="container">
       <h6>Your Progress</h6>
       I want to become a
-      <h4>Tax Manager</h4>
+      <h4>
+        {{ careerGoalData?.name }}
+      </h4>
       <RouterLink to="/">View Insights</RouterLink>
     </div>
   </section>
