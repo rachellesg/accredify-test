@@ -1,10 +1,24 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
-import CareerGoal from '@/components/CareerGoal.vue'
-import RecentDocument from '@/components/Document/RecentDocument.vue'
+const fetchUser = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/api/user')
+    const data = await response.json()
+    userData.value = data.data
+  } catch (error) {
+    console.error('Error fetching user data:', error)
+  }
+}
 
-const user = ref<User | null>(null)
+onMounted(fetchUser)
+</script>
+
+<script lang="ts">
+import CareerGoal from '@/components/CareerGoal.vue'
+import RecentDocument from '@/components/RecentDocument.vue'
+
+const userData = ref<User | null>(null)
 
 interface User {
   id: number
@@ -20,26 +34,15 @@ interface User {
     is_personal: boolean
   }
 }
-
-const fetchUser = async () => {
-  try {
-    const response = await fetch('http://localhost:3000/api/user')
-    const data = await response.json()
-    user.value = data.data
-  } catch (error) {
-    console.error('Error fetching user data:', error)
-  }
-}
-
-onMounted(fetchUser)
 </script>
 
 <template>
   <main>
     <header>
-      <div class="settings">
-        <img :src="(user && user.profile_picture_url) ?? ''" alt="Profile Picture" />
-        {{ user && user.name }}
+      <div />
+      <div class="content settings">
+        <img :src="userData?.profile_picture_url ?? ''" alt="Profile Picture" />
+        {{ userData?.name }}
         <svg
           width="10"
           height="6"
@@ -54,50 +57,60 @@ onMounted(fetchUser)
         </svg>
       </div>
     </header>
-    <section>
-      <h1>Hi, {{ user && user.name }} 👋</h1>
-      <p class="helper-text">
-        Manage your documents issued by SMU Academy or track your career goal.
-      </p>
-    </section>
-    <div class="wrapper">
-      <CareerGoal title="Career Goal" />
-      <RecentDocument title="Recent Document" />
+    <div class="content">
+      <section>
+        <h1>Hi, {{ userData?.name }} 👋</h1>
+        <p class="helper-text">
+          Manage your documents issued by SMU Academy or track your career goal.
+        </p>
+      </section>
+      <div class="wrapper">
+        <!-- <component
+        v-if="user && user.current_organisation.is_personal"
+        :is="CareerGoal"
+        :title="Career Goal"
+      /> -->
+
+        <CareerGoal title="Career Goal" />
+        <RecentDocument title="Recent Document" />
+      </div>
     </div>
   </main>
 </template>
 
 <style scoped>
+main {
+  flex: 1;
+  min-height: 100vh;
+}
+
 header {
-  margin: 0 0 50px;
   height: 64px;
   position: relative;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+  background: white;
+  width: 100%;
+  border-top-left-radius: 8px;
 }
 
 header:after {
   content: '';
   height: 1px;
   width: 100%;
-  background: #888888;
+  background: #d0d2d6;
   position: absolute;
   bottom: 0;
 }
 .settings {
-  width: 120px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 .settings img {
   width: 20px;
   height: 20px;
   border-radius: 10px;
-}
-
-main {
-  padding: 0 50px 0 0;
 }
 </style>
