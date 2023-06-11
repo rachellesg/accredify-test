@@ -21,6 +21,7 @@ defineProps<{
 <style scoped>
 section {
   width: 25%;
+  margin-right: 15px;
 }
 
 .container {
