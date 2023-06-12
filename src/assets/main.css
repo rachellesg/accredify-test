@@ -1,8 +1,7 @@
 @import './base.css';
 
 #app {
-  max-width: 100vw;
-  min-width: 1400px;
+  max-width: 100%;
   box-sizing: border-box;
   font-weight: normal;
   display: flex;

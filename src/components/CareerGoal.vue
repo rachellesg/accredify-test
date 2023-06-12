@@ -51,6 +51,11 @@ section {
   margin-right: 15px;
 }
 
+@media screen and (max-width: 768px) {
+  section {
+    width: 100%;
+  }
+}
 .container {
   display: flex;
   flex-direction: column;

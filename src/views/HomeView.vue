@@ -82,6 +82,8 @@ interface User {
 main {
   flex: 1;
   min-height: 100vh;
+  background: white;
+  border-top-left-radius: 16px;
 }
 
 header {
@@ -90,9 +92,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
   width: 100%;
-  border-top-left-radius: 8px;
 }
 
 header:after {
@@ -112,5 +112,11 @@ header:after {
   width: 20px;
   height: 20px;
   border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+  }
 }
 </style>

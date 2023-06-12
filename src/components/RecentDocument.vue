@@ -39,6 +39,12 @@ section {
   width: 74%;
   flex: 1;
 }
+
+@media screen and (max-width: 768px) {
+  section {
+    width: 100%;
+  }
+}
 .document-wrapper {
   display: flex;
   flex-direction: column;
