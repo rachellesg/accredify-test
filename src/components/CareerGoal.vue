@@ -36,8 +36,16 @@ onMounted(fetchCareerGoal)
     </div>
     <div class="container">
       <h6>Your Progress</h6>
+      <div class="progress-bar">
+        <progress
+          :value="careerGoalData?.progress"
+          min="0"
+          max="100"
+          style="visibility: hidden; height: 0; width: 0"
+        />
+      </div>
       I want to become a
-      <h4>
+      <h4 class="title">
         {{ careerGoalData?.name }}
       </h4>
       <RouterLink to="/">View Insights</RouterLink>
@@ -47,7 +55,7 @@ onMounted(fetchCareerGoal)
 
 <style scoped>
 section {
-  width: 25%;
+  width: 30%;
   margin-right: 15px;
 }
 
@@ -61,5 +69,37 @@ section {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.progress-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, white 79%, transparent 80% 100%),
+    conic-gradient(var(--primary) 35%, #e8e9eb 0);
+}
+
+.progress-bar:before {
+  content: '35%';
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 44px;
+  display: flex;
+  align-items: center;
+  color: #2b22b5;
+}
+
+@property --progress-value {
+  syntax: '<integer>';
+  initial-value: 0;
+  inherits: false;
+}
+
+.title {
+  margin: 0 0 15px;
 }
 </style>
