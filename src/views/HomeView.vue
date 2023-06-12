@@ -17,7 +17,7 @@ onMounted(fetchUser)
 <script lang="ts">
 import CareerGoal from '@/components/CareerGoal.vue'
 import RecentDocument from '@/components/RecentDocument.vue'
-import Header from '@/components/common/Header.vue'
+import Header from '@/components/layout/Header.vue'
 
 const userData = ref<User | null>(null)
 
