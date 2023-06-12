@@ -65,7 +65,7 @@ interface User {
 <style scoped>
 main {
   flex: 1;
-  min-height: 100vh;
+  padding: 0 0 50px;
   background: white;
   border-top-left-radius: 16px;
 }
