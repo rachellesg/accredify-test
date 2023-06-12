@@ -1,47 +1,79 @@
 <template>
-  <div class="item">
-    <i>
-      <slot name="icon"
-        ><svg
-          width="16"
-          height="20"
-          viewBox="0 0 16 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M13.5 0H2.5C1.83715 0.000608986 1.20161 0.264197 0.732906 0.732906C0.264197 1.20161 0.000608986 1.83715 0 2.5V17.5C0.000608986 18.1629 0.264197 18.7984 0.732906 19.2671C1.20161 19.7358 1.83715 19.9994 2.5 20H13.5C14.1629 19.9994 14.7984 19.7358 15.2671 19.2671C15.7358 18.7984 15.9994 18.1629 16 17.5V2.5C15.9994 1.83715 15.7358 1.20161 15.2671 0.732906C14.7984 0.264197 14.1629 0.000608986 13.5 0ZM7.5 14H4.5C4.36739 14 4.24021 13.9473 4.14645 13.8536C4.05268 13.7598 4 13.6326 4 13.5C4 13.3674 4.05268 13.2402 4.14645 13.1464C4.24021 13.0527 4.36739 13 4.5 13H7.5C7.63261 13 7.75979 13.0527 7.85355 13.1464C7.94732 13.2402 8 13.3674 8 13.5C8 13.6326 7.94732 13.7598 7.85355 13.8536C7.75979 13.9473 7.63261 14 7.5 14ZM11.5 11H4.5C4.36739 11 4.24021 10.9473 4.14645 10.8536C4.05268 10.7598 4 10.6326 4 10.5C4 10.3674 4.05268 10.2402 4.14645 10.1464C4.24021 10.0527 4.36739 10 4.5 10H11.5C11.6326 10 11.7598 10.0527 11.8536 10.1464C11.9473 10.2402 12 10.3674 12 10.5C12 10.6326 11.9473 10.7598 11.8536 10.8536C11.7598 10.9473 11.6326 11 11.5 11ZM11.5 8H4.5C4.36739 8 4.24021 7.94732 4.14645 7.85355C4.05268 7.75979 4 7.63261 4 7.5C4 7.36739 4.05268 7.24021 4.14645 7.14645C4.24021 7.05268 4.36739 7 4.5 7H11.5C11.6326 7 11.7598 7.05268 11.8536 7.14645C11.9473 7.24021 12 7.36739 12 7.5C12 7.63261 11.9473 7.75979 11.8536 7.85355C11.7598 7.94732 11.6326 8 11.5 8ZM11.5 5H4.5C4.36739 5 4.24021 4.94732 4.14645 4.85355C4.05268 4.75979 4 4.63261 4 4.5C4 4.36739 4.05268 4.24021 4.14645 4.14645C4.24021 4.05268 4.36739 4 4.5 4H11.5C11.6326 4 11.7598 4.05268 11.8536 4.14645C11.9473 4.24021 12 4.36739 12 4.5C12 4.63261 11.9473 4.75979 11.8536 4.85355C11.7598 4.94732 11.6326 5 11.5 5Z"
-            fill="#493DF5"
-          />
-        </svg>
-      </slot>
-    </i>
-    <slot name="heading"></slot>
-    <slot name="date"></slot>
-    <slot name="action"></slot>
-  </div>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="2">Document Name</th>
+        <th colspan="2">Received On</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td width="5%" align="left">
+          <i>
+            <slot name="icon">
+              <img src="@/assets/icons/file.svg" />
+            </slot>
+          </i>
+        </td>
+        <td width="75%" class="name">
+          <slot name="document-name"></slot>
+        </td>
+        <td width="20%">
+          <slot name="date"></slot>
+        </td>
+        <td width="5%">
+          <slot name="action"></slot>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <style scoped>
-.item {
-  display: flex;
-  justify-content: space-between;
+table,
+tbody {
+  width: 100%;
 }
 
-i {
-  display: flex;
-  place-items: center;
-  place-content: center;
-  width: 32px;
-  height: 32px;
-
-  color: var(--color-text);
+thead {
+  text-align: left;
 }
 
-h3 {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin-bottom: 0.4rem;
-  color: var(--color-heading);
+thead tr th,
+tbody tr .name {
+  font-weight: bold;
+}
+
+tr {
+  position: relative;
+  height: 60px;
+}
+
+tr:after {
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #d0d2d6;
+}
+
+i img {
+  display: block;
+  width: 16px;
+  height: 20px;
+  margin-right: 5px;
+  /* changes svg to  #493df5  */
+  filter: invert(22%) sepia(88%) saturate(6110%) hue-rotate(246deg) brightness(100%) contrast(93%);
+}
+
+.title {
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  color: #151f32;
 }
 </style>

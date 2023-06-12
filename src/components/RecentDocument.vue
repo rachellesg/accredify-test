@@ -1,9 +1,68 @@
 <script setup lang="ts">
-import RecentDocumentItem from './RecentDocumentItem.vue'
+import { ref, onMounted } from 'vue'
 
 defineProps<{
   title: string
 }>()
+
+const fetchDocument = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/api/document')
+    const data = await response.json()
+    documentData.value = data.data
+  } catch (error) {
+    console.error('Error fetching document data:', error)
+  }
+}
+
+onMounted(fetchDocument)
+</script>
+
+<script lang="ts">
+import RecentDocumentItem from './RecentDocumentItem.vue'
+
+const documentData = ref<Document | null>(null)
+
+interface DocumentData {
+  data: Document[]
+  links: {
+    first: string
+    last: string
+    prev: string | null
+    next: string | null
+  }
+  meta: {
+    current_page: number
+    from: number
+    last_page: number
+    links: Link[]
+    path: string
+    per_page: number
+    to: number
+    total: number
+  }
+}
+
+interface Document {
+  id: number
+  status: string
+  document_name: string
+  issuer_name: string
+  issuer_logo_url: string
+  recipient_name: string
+  received_on: string | null
+  expire_at: string | null
+  created_at: string
+  updated_at: string
+  archived_at: string | null
+  deleted_at: string | null
+}
+
+interface Link {
+  url: string | null
+  label: string
+  active: boolean
+}
 </script>
 
 <template>
@@ -14,21 +73,9 @@ defineProps<{
     </div>
     <div class="container document-wrapper">
       <RecentDocumentItem>
-        <template #heading>Documentation</template>
+        <template #document-name>Documentation</template>
         <template #date>23 July 2023</template>
-        <template #action
-          ><svg
-            width="4"
-            height="18"
-            viewBox="0 0 4 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="2" cy="2" r="2" fill="#5B6270" />
-            <circle cx="2" cy="9" r="2" fill="#5B6270" />
-            <circle cx="2" cy="16" r="2" fill="#5B6270" />
-          </svg>
-        </template>
+        <template #action><img src="@/assets/icons/kebab.svg" /> </template>
       </RecentDocumentItem>
     </div>
   </section>
@@ -36,15 +83,9 @@ defineProps<{
 
 <style scoped>
 section {
-  width: 74%;
   flex: 1;
 }
 
-@media screen and (max-width: 768px) {
-  section {
-    width: 100%;
-  }
-}
 .document-wrapper {
   display: flex;
   flex-direction: column;
