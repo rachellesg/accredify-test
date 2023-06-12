@@ -74,4 +74,8 @@ nav a {
 nav a:hover {
   background-color: #353d4e !important;
 }
+
+nav a img {
+  filter: invert(92%) sepia(10%) saturate(78%) hue-rotate(182deg) brightness(93%) contrast(87%);
+}
 </style>
