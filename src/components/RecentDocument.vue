@@ -43,6 +43,7 @@ const documentData = ref<Document[] | null>(null)
       <h4>{{ title }}</h4>
       <RouterLink to="/">View All Documents</RouterLink>
     </div>
+
     <div class="container document-wrapper">
       <table>
         <thead>
