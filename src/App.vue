@@ -5,6 +5,5 @@ import Menu from '@/components/layout/Menu.vue'
 
 <template>
   <Menu />
-
   <RouterView />
 </template>

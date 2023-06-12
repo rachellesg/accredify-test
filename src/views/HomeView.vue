@@ -68,6 +68,7 @@ main {
   padding: 0 0 50px;
   background: white;
   border-top-left-radius: 16px;
+  height: 100vh;
 }
 
 @media screen and (max-width: 768px) {
