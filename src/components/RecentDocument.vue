@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import moment from 'moment'
 
 defineProps<{
   title: string
@@ -19,30 +20,6 @@ onMounted(fetchDocument)
 </script>
 
 <script lang="ts">
-import RecentDocumentItem from './RecentDocumentItem.vue'
-
-const documentData = ref<Document | null>(null)
-
-interface DocumentData {
-  data: Document[]
-  links: {
-    first: string
-    last: string
-    prev: string | null
-    next: string | null
-  }
-  meta: {
-    current_page: number
-    from: number
-    last_page: number
-    links: Link[]
-    path: string
-    per_page: number
-    to: number
-    total: number
-  }
-}
-
 interface Document {
   id: number
   status: string
@@ -57,12 +34,7 @@ interface Document {
   archived_at: string | null
   deleted_at: string | null
 }
-
-interface Link {
-  url: string | null
-  label: string
-  active: boolean
-}
+const documentData = ref<Document[] | null>(null)
 </script>
 
 <template>
@@ -72,11 +44,32 @@ interface Link {
       <RouterLink to="/">View All Documents</RouterLink>
     </div>
     <div class="container document-wrapper">
-      <RecentDocumentItem>
-        <template #document-name>Documentation</template>
-        <template #date>23 July 2023</template>
-        <template #action><img src="@/assets/icons/kebab.svg" /> </template>
-      </RecentDocumentItem>
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2">Document Name</th>
+            <th colspan="2">Received On</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in documentData" :key="item?.id">
+            <td width="5%" align="left">
+              <i>
+                <slot name="icon">
+                  <img src="@/assets/icons/file.svg" />
+                </slot>
+              </i>
+            </td>
+            <td width="75%" class="name">{{ item?.document_name }}</td>
+            <td width="20%">
+              {{ item?.received_on ? moment(item?.received_on).format('DD MMM YYYY') : '' }}
+            </td>
+            <td width="5%">
+              <img src="@/assets/icons/kebab.svg" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </section>
 </template>
@@ -89,5 +82,52 @@ section {
 .document-wrapper {
   display: flex;
   flex-direction: column;
+}
+
+table,
+tbody {
+  width: 100%;
+}
+
+thead {
+  text-align: left;
+}
+
+thead tr th,
+tbody tr .name {
+  font-weight: bold;
+}
+
+tr {
+  position: relative;
+  height: 60px;
+}
+
+tr:after {
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #d0d2d6;
+}
+
+i img {
+  display: block;
+  width: 16px;
+  height: 20px;
+  margin-right: 5px;
+  /* changes svg to  #493df5  */
+  filter: invert(22%) sepia(88%) saturate(6110%) hue-rotate(246deg) brightness(100%) contrast(93%);
+}
+
+.title {
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  color: #151f32;
 }
 </style>
