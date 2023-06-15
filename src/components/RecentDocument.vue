@@ -2,24 +2,6 @@
 import { ref, onMounted } from 'vue'
 import moment from 'moment'
 
-defineProps<{
-  title: string
-}>()
-
-const fetchDocument = async () => {
-  try {
-    const response = await fetch('http://localhost:3000/api/document')
-    const data = await response.json()
-    documentData.value = data.data
-  } catch (error) {
-    console.error('Error fetching document data:', error)
-  }
-}
-
-onMounted(fetchDocument)
-</script>
-
-<script lang="ts">
 interface Document {
   id: number
   status: string
@@ -34,7 +16,24 @@ interface Document {
   archived_at: string | null
   deleted_at: string | null
 }
+
+defineProps<{
+  title: string
+}>()
+
 const documentData = ref<Document[] | null>(null)
+
+const fetchDocument = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/api/document')
+    const data = await response.json()
+    documentData.value = data.data
+  } catch (error) {
+    console.error('Error fetching document data:', error)
+  }
+}
+
+onMounted(fetchDocument)
 </script>
 
 <template>
@@ -53,6 +52,9 @@ const documentData = ref<Document[] | null>(null)
           </tr>
         </thead>
         <tbody>
+          <tr v-if="documentData?.length === 0 || documentData === null">
+            <td colspan="4">No Documents found</td>
+          </tr>
           <tr v-for="item in documentData" :key="item?.id">
             <td width="5%" align="left">
               <i>

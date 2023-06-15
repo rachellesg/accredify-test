@@ -1,6 +1,23 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
+interface User {
+  id: number
+  name: string
+  email: string
+  profile_picture_url: string
+  email_verified_at: string
+  identification_number: string
+  current_organisation: {
+    id: number
+    name: string
+    logo_url: string
+    is_personal: boolean
+  }
+}
+
+const userData = ref<User | null>(null)
+
 const fetchUser = async () => {
   try {
     const response = await fetch('http://localhost:3000/api/user')
@@ -18,23 +35,6 @@ onMounted(fetchUser)
 import CareerGoal from '@/components/CareerGoal.vue'
 import RecentDocument from '@/components/RecentDocument.vue'
 import Header from '@/components/layout/Header.vue'
-
-const userData = ref<User | null>(null)
-
-interface User {
-  id: number
-  name: string
-  email: string
-  profile_picture_url: string
-  email_verified_at: string
-  identification_number: string
-  current_organisation: {
-    id: number
-    name: string
-    logo_url: string
-    is_personal: boolean
-  }
-}
 </script>
 
 <template>
@@ -43,19 +43,17 @@ interface User {
 
     <div class="content">
       <section>
-        <h1>Hi, {{ userData?.name }} 👋</h1>
+        <h1>Hi {{ userData ? `${userData.name},` : 'there' }} 👋</h1>
         <p class="helper-text">
           Manage your documents issued by SMU Academy or track your career goal.
         </p>
       </section>
       <div class="wrapper">
-        <!-- <component
+        <component
           v-if="userData && userData?.current_organisation?.is_personal"
           :is="CareerGoal"
           title="Career Goal"
-        /> -->
-
-        <CareerGoal title="Career Goal" />
+        />
         <RecentDocument title="Recent Document" />
       </div>
     </div>
