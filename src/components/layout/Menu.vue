@@ -85,3 +85,9 @@ nav a img {
   filter: invert(92%) sepia(10%) saturate(78%) hue-rotate(182deg) brightness(93%) contrast(87%);
 }
 </style>
+
+<script lang="ts">
+export default {
+  name: 'Menu'
+}
+</script>
