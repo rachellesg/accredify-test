@@ -2,6 +2,7 @@
   "name": "accredify-test",
   "version": "0.0.0",
   "private": true,
+  "homepage": "https://rachellesg.github.io/accredify-test",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
